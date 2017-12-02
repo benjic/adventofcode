@@ -22,7 +22,7 @@ func Test_digits(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(fmt.Sprintf("%+v", tt.args.input), func(t *testing.T) {
-			if gotSum := digits(tt.args.input); gotSum != tt.wantSum {
+			if gotSum := sumOfRepeatedDigits(tt.args.input); gotSum != tt.wantSum {
 				t.Errorf("digits() = %v, want %v", gotSum, tt.wantSum)
 			}
 		})
@@ -46,7 +46,7 @@ func Test_opposite(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(fmt.Sprintf("%+v", tt.args.input), func(t *testing.T) {
-			if gotSum := opposite(tt.args.input); gotSum != tt.wantSum {
+			if gotSum := sumOfOpposingRepeatedDigits(tt.args.input); gotSum != tt.wantSum {
 				t.Errorf("opposite() = %v, want %v", gotSum, tt.wantSum)
 			}
 		})

@@ -34,7 +34,8 @@ type Row []float64
 // A Checksum contains the numerical computations for a series of rows.
 type Checksum [2]float64
 
-// rowFromString
+// rowFromString parses the given input into a Row. If a non numerical value is
+// present in the input an error is returned.
 func rowFromString(s string) (Row, error) {
 	fs := strings.Fields(s)
 
@@ -51,6 +52,8 @@ func rowFromString(s string) (Row, error) {
 	return r, nil
 }
 
+// minMaxDiff yields the difference between the maximum and minimum values in
+// the given row.
 func minMaxDiff(r Row) float64 {
 	// Set bounds a maimum values
 	min := math.MaxFloat64
@@ -63,6 +66,8 @@ func minMaxDiff(r Row) float64 {
 	return max - min
 }
 
+// findEvenDividend yields first round dividend for all numbers in the give row.
+// Zero is returned if none are found.
 func findEvenDividend(r Row) float64 {
 	var f float64
 
@@ -82,6 +87,7 @@ func findEvenDividend(r Row) float64 {
 	return f
 }
 
+// update returns a new Checksum with the given row applied.
 func update(r Row, cs Checksum) Checksum {
 	return Checksum{
 		cs[0] + minMaxDiff(r),
@@ -89,6 +95,8 @@ func update(r Row, cs Checksum) Checksum {
 	}
 }
 
+// spreadsheetChecksum yields a Checksum for all rows in the given input. If the
+// input contains any non numerical values an error is returned.
 func spreadsheetChecksum(spreadsheet string) (checksum Checksum, err error) {
 	s := bufio.NewScanner(bytes.NewBufferString(spreadsheet))
 
